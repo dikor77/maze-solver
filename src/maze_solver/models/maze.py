@@ -7,6 +7,7 @@ from pathlib import Path
 
 from maze_solver.models.role import Role
 from maze_solver.models.square import Square
+from maze_solver.models.border import Border
 from maze_solver.persistence.serializer import (
     dump_squares,
     load_squares,
@@ -14,7 +15,8 @@ from maze_solver.persistence.serializer import (
 
 @dataclass(frozen=True)
 class Maze:
-    squares: tuple[Square, ...]
+    squares: tuple[Square]
+    #squares: tuple[Square, ...]
 
     @classmethod
     def load(cls, path: Path) -> "Maze":
@@ -50,12 +52,12 @@ class Maze:
     @cached_property
     def exit(self) -> Square:
         return next(sq for sq in self if sq.role is Role.EXIT)
-
-
+    
+#====================================================================
+#                  maze validation function
+#====================================================================
 def validate_indices(maze: Maze) -> None:
-    assert [square.index for square in maze] == list(
-        range(len(maze.squares))
-    ), "Wrong square.index"
+    assert [square.index for square in maze] == list(range(len(maze.squares))), "Wrong square.index"
 
 def validate_rows_columns(maze: Maze) -> None:
     for y in range(maze.height):
@@ -69,3 +71,35 @@ def validate_entrance(maze: Maze) -> None:
 
 def validate_exit(maze: Maze) -> None:
     assert 1 == sum(1 for square in maze if square.role is Role.EXIT), "Must be exactly one exit"
+
+
+
+def test():
+    from maze_solver.view.renderer_text import Print_maze
+    maze = Maze(
+        squares=(
+            Square(0, 0, 0, Border.TOP | Border.LEFT),
+            Square(1, 0, 1, Border.TOP | Border.RIGHT),
+            Square(2, 0, 2, Border.LEFT | Border.RIGHT, role=Role.EXIT),
+            Square(3, 0, 3, Border.TOP | Border.LEFT | Border.RIGHT),
+            Square(4, 1, 0, Border.BOTTOM | Border.LEFT | Border.RIGHT),
+            Square(5, 1, 1, Border.LEFT | Border.RIGHT),
+            Square(6, 1, 2, Border.BOTTOM | Border.LEFT),
+            Square(7, 1, 3, Border.RIGHT),
+            Square(8, 2, 0, Border.TOP | Border.LEFT, role=Role.ENTRANCE),
+            Square(9, 2, 1, Border.BOTTOM),
+            Square(10, 2, 2, Border.TOP | Border.BOTTOM),
+            Square(11, 2, 3, Border.BOTTOM | Border.RIGHT),
+        )
+    )
+
+
+
+    print('=================== Print Maze ===============================')
+    Print_maze(maze)
+    print('==================================================================')
+
+
+
+if __name__ == "__main__":
+    test()

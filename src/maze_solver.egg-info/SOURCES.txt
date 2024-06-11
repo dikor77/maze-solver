@@ -1,3 +1,4 @@
+README.md
 pyproject.toml
 src/maze_solver/__init__.py
 src/maze_solver/__main__.py
