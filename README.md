@@ -6,3 +6,12 @@
 <p>Install package locally</p>
 <p>python -m pip install --editable .</p>
 <p>import maze_solver</p>
+┌────────────┐│     │┌─────┐
+│            ││ EXI ││     │
+│            ││     ││     │
+│     ││     ││            │
+│     ││     ││            │
+└─────┘│     │└──────      │
+┌──────       ───────      │
+│ ENT                      │
+│      ────────────────────┘
