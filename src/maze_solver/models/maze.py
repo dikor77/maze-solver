@@ -15,8 +15,7 @@ from maze_solver.persistence.serializer import (
 
 @dataclass(frozen=True)
 class Maze:
-    squares: tuple[Square]
-    #squares: tuple[Square, ...]
+    squares: tuple[Square, ...]
 
     @classmethod
     def load(cls, path: Path) -> "Maze":
@@ -73,9 +72,13 @@ def validate_exit(maze: Maze) -> None:
     assert 1 == sum(1 for square in maze if square.role is Role.EXIT), "Must be exactly one exit"
 
 
-
+#====================================================================
+#                             Test
+#====================================================================
 def test():
     from maze_solver.view.renderer_text import Print_maze
+    from maze_solver.view.renderer_text import MazeTextContainer
+
     maze = Maze(
         squares=(
             Square(0, 0, 0, Border.TOP | Border.LEFT),
@@ -93,11 +96,11 @@ def test():
         )
     )
 
+    maze_text = MazeTextContainer(maze)
 
 
-    print('=================== Print Maze ===============================')
-    Print_maze(maze)
-    print('==================================================================')
+    maze_text.Print()
+
 
 
 
