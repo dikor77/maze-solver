@@ -4,8 +4,9 @@
 <p>https://realpython.com/python-maze-solver/#demo-python-maze-solver</p>
 <h3>Notes</h3>
 <p>Install package locally</p>
-<p>python -m pip install --editable .</p>
-<p>import maze_solver</p>
+<p><i>python -m pip install --editable .</i></p>
+<p><i>import maze_solver</i></p>
+<pre>
 ┌────────────┐│     │┌─────┐
 │            ││ EXI ││     │
 │            ││     ││     │
@@ -15,3 +16,4 @@
 ┌──────       ───────      │
 │ ENT                      │
 │      ────────────────────┘
+</pre>
